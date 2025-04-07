@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KavachComm | Secure Communication</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="light-mode">
+    <!-- PIN Authentication Screen -->
+    <div id="pin-container">
+        <div class="pin-box fade-in">
+            <div class="pin-logo">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" fill="var(--drdo-blue)"/>
+                    <path d="M17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12ZM15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" fill="var(--drdo-blue)"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" fill="var(--drdo-blue)"/>
+                </svg>
+            </div>
+            <h1 class="pin-title">KAVACH SECURE COMMUNICATION SYSTEM</h1>
+            <p class="pin-subtitle">Restricted Access - Authorized Personnel Only</p>
+            
+            <div class="pin-timer">
+                <span id="pin-countdown">30</span>s until PIN refresh
+                <div class="timer-bar" id="timer-bar"></div>
+            </div>
+            
+            <input type="password" class="pin-input" id="pin-input" placeholder="Enter current PIN" maxlength="6" autofocus>
+            <button class="pin-submit" id="pin-submit">
+                <i class="fas fa-lock-open"></i> AUTHENTICATE
+            </button>
+            <p class="error-message" id="pin-error"></p>
+            
+            <div class="pin-hint">
+                <i class="fas fa-info-circle"></i> Write Before You Think With Time
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="app-container">
+        <header class="app-header">
+            <div class="header-left">
+                <div class="header-logo">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" fill="white"/>
+                        <path d="M17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12ZM15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" fill="white"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" fill="white"/>
+                    </svg>
+                </div>
+                <div class="header-title">
+                    <h1>KAVACH SECURE COMMUNICATION SYSTEM</h1>
+                    <p>End To End Encrypted Messaging</p>
+                </div>
+            </div>
+            <div class="header-controls">
+                <button id="key-vault-btn" class="btn btn-secondary">
+                    <i class="fas fa-vault"></i> Key Vault
+                </button>
+                <button id="emergency-btn" class="emergency-btn">
+                    <i class="fas fa-exclamation-triangle"></i> EMERGENCY
+                </button>
+                <button id="logout-btn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> LOGOUT
+                </button>
+                <label class="theme-toggle">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <!-- System Description -->
+            <section class="system-description">
+                <div class="description-card">
+                    <h2 class="card-title">
+                        <i class="fas fa-info-circle"></i> SYSTEM OVERVIEW
+                    </h2>
+                    <div class="description-content">
+                        <p>KavachComm provides military-grade end-to-end encrypted messaging. This system utilizes AES-256 encryption with perfect forward secrecy and RSA-2048 key exchange.</p>
+                        <div class="features-grid">
+                            <div class="feature-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <h3>Time-Based PIN</h3>
+                                <p>Dynamic authentication that changes every minute</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-user-secret"></i>
+                                <h3>Zero-Knowledge</h3>
+                                <p>We never store your encryption keys</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-fire-extinguisher"></i>
+                                <h3>Emergency Protocols</h3>
+                                <p>Instant data wipe and lockdown</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-history"></i>
+                                <h3>Secure Audit Trail</h3>
+                                <p>Tamper-proof message history</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-file-lock"></i>
+                                <h3>File Encryption</h3>
+                                <p>Secure file encryption with key management</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-vault"></i>
+                                <h3>Key Vault</h3>
+                                <p>Secure storage for all encryption keys</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- System Status -->
+            <section class="system-status">
+                <h2 class="status-title">
+                    <i class="fas fa-shield-alt"></i> SYSTEM STATUS
+                </h2>
+                <div class="status-grid">
+                    <div class="status-card">
+                        <h3>Encryption Protocol</h3>
+                        <p>AES-256 Active</p>
+                    </div>
+                    <div class="status-card">
+                        <h3>Key Exchange</h3>
+                        <p>RSA-2048 Enabled</p>
+                    </div>
+                    <div class="status-card">
+                        <h3>Connection</h3>
+                        <p>Secure Channel</p>
+                    </div>
+                    <div class="status-card">
+                        <h3>Last Authentication</h3>
+                        <p id="last-auth">Just Now</p>
+                    </div>
+                    <div class="status-card">
+                        <h3>Key Vault</h3>
+                        <p id="key-vault-status">0 keys</p>
+                    </div>
+                    <div class="status-card">
+                        <h3>Threat Level</h3>
+                        <p id="threat-level-text">Low</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Communication Section -->
+            <section class="comms-section">
+                <div class="comms-card">
+                    <h2 class="card-title">
+                        <i class="fas fa-lock"></i> ENCRYPT MESSAGE
+                    </h2>
+                    <div class="input-group">
+                        <label for="plaintext">Enter plaintext message:</label>
+                        <textarea id="plaintext" placeholder="Type sensitive information here..."></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-primary" id="encrypt-btn">
+                            <i class="fas fa-lock"></i> Encrypt
+                        </button>
+                        <button class="btn btn-secondary" id="clear-encrypt">
+                            <i class="fas fa-trash"></i> Clear
+                        </button>
+                        <button class="btn btn-secondary" id="self-destruct-btn">
+                            <i class="fas fa-bomb"></i> Self-Destruct
+                        </button>
+                        <button class="btn btn-secondary" id="file-encryption-btn">
+                            <i class="fas fa-file-import"></i> File Encryption
+                        </button>
+                    </div>
+                    <div class="input-group">
+                        <label for="ciphertext">Encrypted output:</label>
+                        <textarea id="ciphertext" readonly></textarea>
+                    </div>
+                    <div class="message-options">
+                        <label>
+                            <input type="checkbox" id="burn-after"> Burn after reading
+                        </label>
+                        <label>
+                            <input type="number" id="ttl" min="1" max="60" placeholder="TTL (min)">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="comms-card">
+                    <h2 class="card-title">
+                        <i class="fas fa-unlock"></i> DECRYPT MESSAGE
+                    </h2>
+                    <div class="input-group">
+                        <label for="encrypted-text">Enter encrypted message:</label>
+                        <textarea id="encrypted-text" placeholder="Paste encrypted message here..."></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-primary" id="decrypt-btn">
+                            <i class="fas fa-unlock"></i> Decrypt
+                        </button>
+                        <button class="btn btn-secondary" id="clear-decrypt">
+                            <i class="fas fa-trash"></i> Clear
+                        </button>
+                    </div>
+                    <div class="input-group">
+                        <label for="decrypted-text">Decrypted output:</label>
+                        <textarea id="decrypted-text" readonly></textarea>
+                    </div>
+                    <div class="message-warning" id="message-warning"></div>
+                </div>
+            </section>
+
+            <!-- Message History -->
+            <section class="history-section">
+                <div class="history-card">
+                    <h2 class="card-title">
+                        <i class="fas fa-history"></i> MESSAGE HISTORY
+                        <button class="btn btn-secondary" id="clear-history">
+                            <i class="fas fa-trash"></i> Clear History
+                        </button>
+                    </h2>
+                    <div class="history-list" id="message-history">
+                        <!-- Messages will appear here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Security Dashboard -->
+            <section class="dashboard-section">
+                <div class="dashboard-card">
+                    <h2 class="card-title">
+                        <i class="fas fa-tachometer-alt"></i> SECURITY DASHBOARD
+                    </h2>
+                    <div class="dashboard-grid">
+                        <div class="dashboard-item">
+                            <h3>Threat Detection</h3>
+                            <div class="threat-meter" id="threat-meter">
+                                <div class="threat-level" id="threat-level"></div>
+                            </div>
+                            <p id="threat-status">No active threats</p>
+                        </div>
+                        <div class="dashboard-item">
+                            <h3>Active Sessions</h3>
+                            <div class="sessions-list" id="sessions-list">
+                                <div class="session-item">
+                                    <i class="fas fa-laptop"></i>
+                                    <span>This device (Chrome, Windows)</span>
+                                    <span class="session-time">Now</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-item">
+                            <h3>Recent Keys Generated</h3>
+                            <div class="keys-list-mini" id="keys-list-mini">
+                                <!-- Recent keys will appear here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p>© 2025 SHUBHAM RAJ & SHAYAN A. ABEDEEN - ALL RIGHTS RESERVED</p>
+            <div class="footer-links">
+                <a href="#" id="privacy-link">Privacy Policy</a>
+                <a href="#" id="terms-link">Terms of Service</a>
+                <a href="#" id="contact-link">Contact Support</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Emergency Modal -->
+    <div id="emergency-modal" class="modal">
+        <div class="modal-content emergency-content">
+            <span class="close-modal">&times;</span>
+            <h2><i class="fas fa-exclamation-triangle"></i> EMERGENCY PROTOCOLS</h2>
+            
+            <div class="emergency-actions">
+                <button class="btn btn-emergency" id="lock-system-btn">
+                    <i class="fas fa-lock"></i> LOCK SYSTEM
+                </button>
+                <button class="btn btn-emergency" id="wipe-data-btn">
+                    <i class="fas fa-eraser"></i> WIPE ALL DATA
+                </button>
+                <button class="btn btn-emergency" id="fake-screen-btn">
+                    <i class="fas fa-mask"></i> ACTIVATE DECOY
+                </button>
+                <button class="btn btn-emergency" id="wipe-keys-btn">
+                    <i class="fas fa-key"></i> WIPE ENCRYPTION KEYS
+                </button>
+            </div>
+            
+            <div class="emergency-contacts">
+                <h3><i class="fas fa-phone-alt"></i> EMERGENCY CONTACTS</h3>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <i class="fas fa-user-shield"></i>
+                        <h4>Security Command</h4>
+                        <p>+1-XXX-XXX-XXXX</p>
+                        <button class="btn emergency-call">
+                            <i class="fas fa-phone"></i> CALL
+                        </button>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-ambulance"></i>
+                        <h4>Medical Emergency</h4>
+                        <p>+1-XXX-XXX-XXXX</p>
+                        <button class="btn emergency-call">
+                            <i class="fas fa-phone"></i> CALL
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Details Modal -->
+    <div id="message-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="message-details-content">
+                <!-- Filled dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- File Encryption Modal -->
+    <div id="file-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2><i class="fas fa-file-lock"></i> File Encryption</h2>
+            <div class="file-upload-box">
+                <input type="file" id="file-to-encrypt">
+                <div class="security-options">
+                    <label>
+                        <input type="checkbox" id="generate-key-checkbox"> Generate Security Key
+                    </label>
+                    <button id="generate-key-btn" class="btn btn-secondary" disabled>
+                        <i class="fas fa-key"></i> Generate New Key
+                    </button>
+                </div>
+                <div id="key-display" class="hidden">
+                    <h4>Your Security Key:</h4>
+                    <div class="key-container">
+                        <code id="security-key"></code>
+                        <button id="copy-key-btn" class="btn btn-small">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                        <button id="share-key-btn" class="btn btn-small">
+                            <i class="fas fa-share-alt"></i> Share
+                        </button>
+                    </div>
+                    <p class="warning"><i class="fas fa-exclamation-triangle"></i> Save this key - you'll need it to decrypt!</p>
+                </div>
+                <button id="encrypt-file-btn" class="btn btn-primary" disabled>
+                    <i class="fas fa-lock"></i> Encrypt File
+                </button>
+                <div class="progress-container hidden">
+                    <progress value="0" max="100" id="encrypt-progress"></progress>
+                    <span id="encrypt-status">0%</span>
+                </div>
+                <div id="file-encryption-status"></div>
+            </div>
+            
+            <h2><i class="fas fa-file-unlock"></i> File Decryption</h2>
+            <div class="file-upload-box">
+                <input type="file" id="file-to-decrypt">
+                <div class="key-input-group">
+                    <label for="decryption-key">Security Key:</label>
+                    <input type="text" id="decryption-key" placeholder="Paste your security key here">
+                    <button id="paste-key-btn" class="btn btn-small">
+                        <i class="fas fa-paste"></i> Paste
+                    </button>
+                </div>
+                <button id="decrypt-file-btn" class="btn btn-primary" disabled>
+                    <i class="fas fa-unlock"></i> Decrypt File
+                </button>
+                <div class="progress-container hidden">
+                    <progress value="0" max="100" id="decrypt-progress"></progress>
+                    <span id="decrypt-status">0%</span>
+                </div>
+                <div id="file-decryption-status"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Vault Modal -->
+    <div id="key-vault-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2><i class="fas fa-vault"></i> Key Vault</h2>
+            <div class="vault-controls">
+                <button id="export-keys-btn" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Export All Keys
+                </button>
+                <button id="import-keys-btn" class="btn btn-secondary">
+                    <i class="fas fa-upload"></i> Import Keys
+                </button>
+                <button id="wipe-vault-btn" class="btn btn-emergency">
+                    <i class="fas fa-trash"></i> Wipe Vault
+                </button>
+            </div>
+            <div class="keys-list" id="keys-list">
+                <!-- Keys will be listed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Secure Sharing Modal -->
+    <div id="share-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2><i class="fas fa-shield-alt"></i> Secure Sharing</h2>
+            <div class="share-options">
+                <div class="input-group">
+                    <label for="share-key">Security Key:</label>
+                    <input type="text" id="share-key" readonly>
+                    <button id="copy-share-key" class="btn btn-small">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+                <div class="input-group">
+                    <label for="share-method">Share Via:</label>
+                    <select id="share-method">
+                        <option value="qr">QR Code</option>
+                        <option value="link">Secure Link</option>
+                        <option value="email">Encrypted Email</option>
+                    </select>
+                </div>
+                <div id="qr-code-container" class="hidden">
+                    <canvas id="qr-code-canvas"></canvas>
+                </div>
+                <div id="secure-link-container" class="hidden">
+                    <input type="text" id="secure-link" readonly>
+                    <button id="copy-link" class="btn btn-small">
+                        <i class="fas fa-copy"></i> Copy Link
+                    </button>
+                </div>
+                <button id="send-share" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Share Securely
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="file-modal" class="modal">
+        <div class="modal-content">  <!-- This is the scrollable container -->
+          <span class="close-modal">&times;</span>
+          <!-- Your existing content stays here -->
+        </div>
+      </div>
+      <div id="emergency-modal" class="modal">
+        <div class="modal-content">  <!-- This becomes scrollable -->
+          <span class="close-modal">&times;</span>
+          <h2>Emergency Protocols</h2>
+          <div id="emergency-contacts-list">
+            <!-- Your emergency contacts will appear here -->
+          </div>
+          <!-- Your emergency buttons stay here -->
+        </div>
+      </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
